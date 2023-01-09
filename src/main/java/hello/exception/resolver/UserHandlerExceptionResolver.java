@@ -28,12 +28,12 @@ public class UserHandlerExceptionResolver implements HandlerExceptionResolver {
 
                 if("application/json".equals(acceptHeader)){
                     Map<String, Object> errorResult = new HashMap<>();
-                    errorResult.put("ex", ex.getMessage());
+                    errorResult.put("ex", ex.getClass());
                     errorResult.put("message", ex.getMessage());
                     String result = objectMapper.writeValueAsString(errorResult);
 
                     response.setContentType("application/json");
-                    response.setContentType("urf-8");
+                    response.setCharacterEncoding("utf-8");
                     response.getWriter().write(result);
                     return new ModelAndView();
                 }else{
@@ -44,7 +44,7 @@ public class UserHandlerExceptionResolver implements HandlerExceptionResolver {
         }catch (IOException e){
             log.error("resolver ex", e);
         }
-
         return null;
     }
+
 }
